@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/customer-rewards/static/css/main.7adec6a8.css",
+    "main.js": "/customer-rewards/static/js/main.0c5a861d.js",
+    "index.html": "/customer-rewards/index.html",
+    "main.7adec6a8.css.map": "/customer-rewards/static/css/main.7adec6a8.css.map",
+    "main.0c5a861d.js.map": "/customer-rewards/static/js/main.0c5a861d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7adec6a8.css",
+    "static/js/main.0c5a861d.js"
+  ]
+}
