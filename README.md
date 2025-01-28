@@ -1,70 +1,77 @@
-# Getting Started with Create React App
+# Rewards Program - Customer Points Calculation
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Problem Statement
 
-## Available Scripts
+A retailer offers a **rewards program** to its customers, awarding points based on each recorded purchase.
 
-In the project directory, you can run:
+### Reward Points Calculation
 
-### `npm start`
+- A customer receives:
+  - **2 points** for every dollar spent **over $100** in each transaction.
+  - **1 point** for every dollar spent between **$50 and $100** in each transaction.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Example:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+For a **$120** purchase:
 
-### `npm test`
+- **2 points** for every dollar over **$100**: `2 x ($120 - $100) = 40 points`
+- **1 point** for every dollar between **$50 and $100**: `1 x ($100 - 50) = 50 points`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Total points earned = **40 + 50 = 90 points**.
 
-### `npm run build`
+## Task Requirements
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Use React JS** (Do not use TypeScript).
+- Simulate an **asynchronous API call** to fetch transaction data.
+- **No Redux** should be used for state management.
+- Create a **mock dataset** to best demonstrate your solution. The data should be made up, but it should clearly show the reward points calculation for different customers.
+- Add **unit test cases** to verify the solution.
+- **Check the solution into GitHub** for version control and sharing.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Solution Approach
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 1. **React Application**
 
-### `npm run eject`
+The React application will be divided into several components to manage different parts of the solution:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **`App.js`**: The main component that fetches the transaction data and calculates the reward points for each customer.
+- **`DisplayCustomers.jsx`**: Displays the list of customers, their transaction details, and reward points. It will include pagination.
+- **`Modal.jsx`**: Displays detailed transaction history for a selected customer when the "View Transactions" button is clicked.
+- **`useFetch.jsx`**: A custom hook to simulate the asynchronous API call to fetch the transaction data.
+- **`usePagination.jsx`**: A custom hook to handle pagination of customer data.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 2. **Transaction Points Calculation**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **`calculateRewards` Function**: This function will calculate the reward points based on the amount spent in each transaction.
+- **`evaluateTransactions` Function**: This function will process all transactions and calculate the total reward points for each customer, as well as provide information about their last 3 months of transactions.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 3. **API Simulation**
 
-## Learn More
+To simulate the asynchronous API call:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Used `useEffect` to simulate the fetching of transaction data.
+- The data will be fetched asynchronously using `fetch`.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 4. **Unit Testing**
 
-### Code Splitting
+Used **React Testing Library** to write unit tests for the following:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Testing the calculation of reward points (`calculateRewards`).
+- Testing the processing of multiple transactions for a customer (`evaluateTransactions`).
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Example Dataset
 
-### Making a Progressive Web App
+The following is a sample dataset that could be used to demonstrate the solution:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```json
+[
+  { "customerId": "1", "date": "2023-01-10", "amount": 120 },
+  { "customerId": "1", "date": "2023-01-25", "amount": 80 },
+  { "customerId": "2", "date": "2023-01-15", "amount": 200 },
+  { "customerId": "2", "date": "2023-02-05", "amount": 50 },
+  { "customerId": "3", "date": "2023-03-01", "amount": 95 },
+  { "customerId": "3", "date": "2023-03-10", "amount": 110 }
+]
+```
